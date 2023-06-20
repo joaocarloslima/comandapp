@@ -66,7 +66,7 @@ export default function Login() {
             {loading ? 'Carregando...' : 'Entrar'}
           </button>
 
-          <a className='text-sky-950 text-sm' href='/registrar'>criar conta</a>
+          <a className='text-sky-950 text-sm' href='https://festa.etecia.com.br/registrar'>criar conta</a>
 
           {error && <p className='text-red-500'>{error}</p>}
         </div>
