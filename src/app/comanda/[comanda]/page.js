@@ -122,7 +122,7 @@ export default function Pedido({ params }) {
           </div>
         </div>
 
-        <div className='flex gap-2 flex-col text-sky-950 mt-4'>
+        <div className='flex gap-2 flex-col text-sky-950 mt-4 mb-16'>
           <h2 className='font-bold text-xl'>Produtos</h2>
 
 
