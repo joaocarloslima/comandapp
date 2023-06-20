@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { logout } from '@/services/AuthService';
 
-
 export default function Comanda() {
   const [comanda, setComanda] = useState(null)
   const route = useRouter()
