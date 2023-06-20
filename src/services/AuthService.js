@@ -1,7 +1,8 @@
 const TOKEN_KEY = 'token'
+const url = process.env.NEXT_PUBLIC_BACKEND_SERVER_URL
 
 export async function login(values){
-    const res = await fetch('http://localhost:8000/api/login', {
+    const res = await fetch(url + '/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -20,15 +21,16 @@ export async function login(values){
 }
 
 export async function logout(){
-    const res = await fetch('http://localhost:8000/api/logout', {
+    const token = sessionStorage.getItem(TOKEN_KEY)
+    sessionStorage.clear()
+    const res = await fetch(url + '/api/logout', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer ' + sessionStorage.getItem(TOKEN_KEY),
+            'Authorization': 'Bearer ' + token,
         }
     })
 
-    sessionStorage.clear()
 }
 

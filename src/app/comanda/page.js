@@ -16,8 +16,8 @@ export default function Comanda() {
     route.push('/comanda/' + comanda)
   }
 
-  function sair() {
-    logout()
+  async function sair() {
+    await logout()
     route.push('/login')
   }
 

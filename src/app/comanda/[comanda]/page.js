@@ -1,7 +1,7 @@
 "use client";
 
 import Produto from '@/components/Produto';
-import { getPedidoData } from '@/services/ApiService';
+import { fecharPedido, getPedidoData } from '@/services/ApiService';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 
 export default function Pedido({ params }) {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   const [data, setData] = useState({
     saldo: 0,
     total: 0,
@@ -33,6 +35,7 @@ export default function Pedido({ params }) {
         })
       } catch (err) {
         console.log(err, err.message)
+        setError("Erro ao carregar dados")
       }
     }
     carregarDados()
@@ -67,7 +70,19 @@ export default function Pedido({ params }) {
     })
   }
 
-
+  const handleFecharPedido = async () => {
+    setLoading(true)
+    try {
+      const produtos = data.produtos.filter(p => p.qtde > 0)
+      await fecharPedido(params.comanda, produtos)
+      router.push('/comanda')
+    } catch (err) {
+      console.log(err, err.message)
+      setError(err.message || "Erro ao fechar pedido")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <>
@@ -89,6 +104,8 @@ export default function Pedido({ params }) {
       </div>
 
       <main className="flex min-h-screen flex-col p-4 bg-slate-100	">
+
+
         <div className='flex flex-col gap-4 text-sky-950 w-full bg-white p-2 rounded'>
           <h3 className='font-bold text-xl'>Pedido</h3>
           <div className='flex justify-between'>
@@ -119,7 +136,14 @@ export default function Pedido({ params }) {
         </div>
 
         <div className='relative'>
-          <button className='fixed inset-x-0 bottom-0 bg-sky-950 rounded-md p-2 text-amber-400 font-bold m-4'>fechar pedido</button>
+          <div className='text-center w-full'>
+            {error && <p className='text-red-600 font-bold'>Erro: {error}</p>}
+          </div>
+          <button
+            onClick={handleFecharPedido}
+            className='fixed inset-x-0 bottom-0 bg-sky-950 rounded-md p-2 text-amber-400 font-bold m-4'>
+            {loading ? 'carregando...' : 'fechar pedido'}
+          </button>
         </div>
 
       </main>

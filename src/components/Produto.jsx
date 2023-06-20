@@ -13,7 +13,7 @@ export default function Produto(props) {
 
     return (
         <div className='flex justify-between items-center w-full bg-white rounded p-2 gap-2'>
-            <img className='rounded-lg' src='https://via.placeholder.com/60' alt='produto' />
+            <img className='rounded-lg w-16 h-16 object-cover' src={produto.imagem} alt='produto' />
             <div className='flex-1'>
                 <h3 className='text-lg font-semibold'>{produto.nome}</h3>
                 <p className='text-green-600 font-medium'>{produto.preco}</p>
