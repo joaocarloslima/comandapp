@@ -54,9 +54,7 @@ export default function Comanda() {
                 value={comanda}
                 onChange={e => setComanda(e.target.value)}
               />
-              <button className="bg-sky-950 rounded-md p-2 text-amber-400 font-bold">
-                <DocumentScannerIcon />
-              </button>
+              
             </div>
 
             <button className='bg-sky-950 rounded-md p-2 text-amber-400 font-bold'>confirmar</button>
