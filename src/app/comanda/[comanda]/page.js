@@ -3,6 +3,7 @@
 import Produto from '@/components/Produto';
 import { fecharPedido, getPedidoData } from '@/services/ApiService';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ClearIcon from '@mui/icons-material/Clear';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
@@ -84,6 +85,10 @@ export default function Pedido({ params }) {
     }
   }
 
+  function close() {
+    setError(null)
+  }
+
   return (
     <>
       <div className="flex gap-2 items-center justify-between border-b-2 p-2">
@@ -137,7 +142,13 @@ export default function Pedido({ params }) {
 
         <div className='relative'>
           <div className='text-center w-full'>
-            {error && <p className='text-red-600 font-bold'>Erro: {error}</p>}
+            {error && (
+              <div onClick={close} className={`fixed bottom-16 inset-x-0 m-2 bg-red-500 text-white py-2 px-4 rounded shadow-lg`}>
+                <p>Erro: {error}</p>
+                <ClearIcon className='absolute top-2 right-2 text-white' />
+              </div>
+            )}
+
           </div>
           <button
             onClick={handleFecharPedido}
